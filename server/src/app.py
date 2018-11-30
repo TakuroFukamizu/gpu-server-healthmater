@@ -28,7 +28,8 @@ def task():
     gpu_value = records[0].gpu_utilization
 
     with serial.Serial(SERIAL_PORT, 9600, timeout=1) as ser:
-        value = gpu_value.to_bytes(1, 'little')
+        value = int(gpu_value)
+        value = value.to_bytes(1, 'little')
         ser.write(value)
     ser.close()
 
