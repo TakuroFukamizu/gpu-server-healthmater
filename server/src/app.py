@@ -16,7 +16,6 @@ SERIAL_PORT = env.str("SERIAL_PORT", default=8080)
 # -----------
 
 def task():
-    print(time.time())
     records = []
     try:
         for record in get_smi_record():
@@ -26,6 +25,7 @@ def task():
         print(traceback.format_exc())
         return
     gpu_value = records[0].gpu_utilization
+    print(time.time(), gpu_value)
 
     with serial.Serial(SERIAL_PORT, 9600, timeout=1) as ser:
         value = int(gpu_value)
